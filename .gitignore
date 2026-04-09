@@ -121,3 +121,6 @@ dmypy.json
 nltk_data
 nltk_data/
 .nltk_data
+
+glove_wvs.bin
+glove_wvs.bin.vectors.npy
