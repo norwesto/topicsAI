@@ -117,3 +117,7 @@ dmypy.json
 
 # Macs
 .DS_Store
+
+nltk_data
+nltk_data/
+.nltk_data
