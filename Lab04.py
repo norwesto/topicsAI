@@ -14,6 +14,9 @@ client = OpenAI(api_key=api_key)
 # 5.1 DELIMETERS
 
 def delineate(text: str):
+    """
+    Analyzes whether a given text is happy or sad using ### as delimiters.
+    """
 
     prompt = f"""Tell me if the text between the ### delimiters is happy or sad.
     
@@ -26,8 +29,6 @@ def delineate(text: str):
     responses = client.responses.create(model = "gpt-4o-mini", input = prompt)
     return responses.output_text
 
-user_input = "I can't believe how amazing this concert was, best night of my life!"
-#print(delineate(user_input))
 
 # 5.2 SPECIFYING OUTPUT
 class input_analysis(BaseModel):
@@ -37,6 +38,9 @@ class input_analysis(BaseModel):
 
 
 def specify_amount(text:str):
+    """
+    Analyzes a piece of text and returns the author, a summary, and the tone.
+    """
 
     responses = client.responses.parse(
         model = "gpt-4o-mini", 
@@ -48,25 +52,15 @@ def specify_amount(text:str):
              text_format=input_analysis
         )
     return responses.output_parsed
-user_input = """Once upon a midnight dreary, while I pondered, weak and weary,
-Over many a quaint and curious volume of forgotten lore—
-    While I nodded, nearly napping, suddenly there came a tapping,
-As of some one gently rapping, rapping at my chamber door.
-“’Tis some visitor,” I muttered, “tapping at my chamber door—
-            Only this and nothing more.”
 
-    Ah, distinctly I remember it was in the bleak December;
-And each separate dying ember wrought its ghost upon the floor.
-    Eagerly I wished the morrow;—vainly I had sought to borrow
-    From my books surcease of sorrow—sorrow for the lost Lenore—
-For the rare and radiant maiden whom the angels name Lenore—
-            Nameless here for evermore.
-                """
-#print(specify_amount(user_input))
 
 # 5.3 CHECKING INPUT
 
 def check_input(text: str):
+    """
+    Summarizes a Harry Potter book given its title. If the input is not a 
+    valid Harry Potter book title, returns an error message instead.
+    """
 
     prompt = f"""Summarize the Harry Potter book based on its title between the ### delimiters.
     ###
@@ -78,12 +72,14 @@ def check_input(text: str):
     responses = client.responses.create(model = "gpt-4o-mini", input = prompt)
     return responses.output_text
 
-user_input = """The Lightning Thief"""
-#print(check_input(user_input))
 
 # 5.4 FEW SHOT PROMPTING
 
 def few_shot_prompting(text:str):
+    """
+    Answers a computer science student's question by following the pattern 
+    of a provided example Q&A using few-shot prompting.
+    """
     prompt = f"""I am a computer science student in college. Below is an example Q&A
 that my teacher has provided. Follow the pattern and answer the new
 student's question from the text between the ### delineators.
@@ -99,12 +95,12 @@ information referred to as a value.
     """
     responses = client.responses.create(model = "gpt-4o-mini", input = prompt)
     return responses.output_text
-user_input = """Q2: What is a for loop?"""
-# print(few_shot_prompting(user_input))
 
 # 5.5 SUMMARIZE
 def summarize(reviews: list):
-
+    """
+    Summarizes a list of reviews focusing on food quality, tone, and customer service using ### as delimiters.
+    """
     prompt = f"""Summarize the items in the list between the ### delimiters on food quality, tone, and customer service
 
     ###
@@ -126,7 +122,6 @@ reviews = [
     """After 9 months of not being able to eat hot dogs (due to pregnancy) and we randomly stopped on the way home from the hospital. Great spot and tasty hot dogs and sausages!""",
     """Customer service was great...but the food was not. We got a corn dog and the Chicago dog and they were both pretty basic. The corn dog was not crispy at all and the hotdog had mediocre flavor. The only thing we liked was their fries.""",
     """Just okay. Harley's in Littleton is much better in every possible way. No drink refills is crazy."""]
-# print(summarize(reviews))
 
 # 5.6 INFER
 
@@ -136,6 +131,10 @@ class output_style(BaseModel):
     cities_mentioned: str
 
 def infer(reviews:list):
+    """
+    Analyzes a list of reviews and infers what food is sold, the overall 
+    product quality, and any cities mentioned using a structured output.
+    """
 
     all_text = ""
     for review in reviews:
@@ -152,11 +151,14 @@ def infer(reviews:list):
         )
     return responses.output_parsed 
 
-# print(infer(reviews))
-
 # 5.7 TRANSFORM
 
 def transform(reviews_to_translate:list):
+    """
+    Takes a list of reviews (some already in foreign languages) and generates 
+    an HTML table with columns for source language, English translation, 
+    food quality, and customer service.
+    """ 
     html_rows = ""
     languages = ["Spanish", "French", "German", "Japanese", "Portuguese", 
                  "Italian", "Dutch", "Korean", "Arabic", "Russian"]
@@ -184,11 +186,14 @@ reviews_to_translate = [
     """After 9 months of not being able to eat hot dogs (due to pregnancy) and we randomly stopped on the way home from the hospital. Great spot and tasty hot dogs and sausages!""",
     """Customer service was great...but the food was not. We got a corn dog and the Chicago dog and they were both pretty basic. The corn dog was not crispy at all and the hotdog had mediocre flavor. The only thing we liked was their fries.""",
     """可もなく不可もなく、といったところ。リトルトンにある「Harley's」の方が、あらゆる面で断然優れています。ドリンクのおかわりができないなんて、正気の沙汰ではありません。"""]
-# print(transform(reviews_to_translate))
 
 # 5.8 EXPAND
 
 def expand(reviews:list):
+    """
+    Summarizes a list of reviews on food quality, tone, and customer service, 
+    then formats the summary as an email directed to the user
+    """
     prompt = f"""Summarize the items in the list between the ### delimiters on food quality, tone, and customer service. Put this information into an email format directed to the user.
 
     ###
@@ -198,4 +203,49 @@ def expand(reviews:list):
     """
     responses = client.responses.create(model = "gpt-4o-mini", input = prompt)
     return responses.output_text
-print(expand(reviews))
+
+def main():
+
+    # delineate
+    user_input = "I can't believe how amazing this concert was, best night of my life!"
+    print(delineate(user_input))
+
+    # specify amount
+    user_input = """Once upon a midnight dreary, while I pondered, weak and weary,
+    Over many a quaint and curious volume of forgotten lore—
+        While I nodded, nearly napping, suddenly there came a tapping,
+    As of some one gently rapping, rapping at my chamber door.
+    “’Tis some visitor,” I muttered, “tapping at my chamber door—
+                Only this and nothing more.”
+
+        Ah, distinctly I remember it was in the bleak December;
+    And each separate dying ember wrought its ghost upon the floor.
+        Eagerly I wished the morrow;—vainly I had sought to borrow
+        From my books surcease of sorrow—sorrow for the lost Lenore—
+    For the rare and radiant maiden whom the angels name Lenore—
+                Nameless here for evermore.
+                    """
+    print(specify_amount(user_input))
+
+    # check input
+    user_input = """The Lightning Thief"""
+    print(check_input(user_input))
+
+    # few shot prompting
+    user_input = """Q2: What is a for loop?"""
+    print(few_shot_prompting(user_input))
+
+    # summarize
+    print(summarize(reviews))
+
+    # infer
+    print(infer(reviews))
+
+    # transform
+    print(transform(reviews_to_translate))
+
+    # expand
+    print(expand(reviews))
+
+if __name__ == '__main__':
+    main()

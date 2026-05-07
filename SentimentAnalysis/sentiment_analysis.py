@@ -1,8 +1,8 @@
 
 '''
 File: sentiment_analysis.py
-Author: <your name here along with your teammates>
-Date: 
+Author: Nora Westol
+Date: 05/07/2026
 
 This provides sentiment analysis functions for processing tweets in particular,
 but relies on tweet_processing to handle the cleanup of the tweets. Analysis is
@@ -11,6 +11,11 @@ done using Naive Bayes.
 '''
 import random
 import tweet_processor as tp
+import math
+from openai import OpenAI
+import os
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key)
 
 import numpy as np
 
@@ -89,10 +94,11 @@ def build_word_freq_dict(tweets : list[list[str]], labels : np.ndarray[int]) -> 
     vocab: A set of words in the dictionary
 
     '''
+    # create the dictionary and vocabulary here
     dict = {}
     vocab = set()
 
-    proc_pos_tweets, proc_neg_tweets, stopwords, pos_tweets, neg_tweets = tp.process_tweets('positive_tweets.ndjson', 'negative_tweets.ndjson', 'english_stopwords.txt')
+    proc_pos_tweets, proc_neg_tweets, stopwords, pos_tweets, neg_tweets = tp.process_tweets('/Users/norawestol/Documents/school/topics/SentimentAnalysis/positive_tweets.ndjson', '/Users/norawestol/Documents/school/topics/SentimentAnalysis/negative_tweets.ndjson', 'SentimentAnalysis/english_stopwords.txt')
     for tweet in proc_pos_tweets:
         for word in tweet:
             if (word, 1) in dict:
@@ -107,11 +113,7 @@ def build_word_freq_dict(tweets : list[list[str]], labels : np.ndarray[int]) -> 
                 dict[(word, 0)] += 1
             else:
                 dict[(word, 0)] = 1
-            vocab.add(word)
-
-
-    
-    # create the dictionary and vocabulary here
+            vocab.add(word)   
 
     # return the frequency dictionary and vocabulary set
     return dict, vocab
@@ -171,7 +173,6 @@ def count_pos_neg(freqs : dict[(str, int),  int]) -> tuple[int, int]:
     # particular class of positive or negative 
 
     return num_pos, num_neg
-
 
 
 def build_loglikelihood_dict(freqs : dict[(str, int),  int], N_pos : int, N_neg : int, vocab : list[str], debug : bool = False) -> dict[str, float]:
@@ -236,7 +237,7 @@ def debug_sentiment_analysis(tweets : list[str], stopwords : list[str], labels :
 
 def main():
 #     # first, set up our samples
-    pos_tweets, neg_tweets, stopwords, full_pos_tweets, full_neg_tweets = tp.process_tweets('positive_tweets.ndjson', 'negative_tweets.ndjson', 'english_stopwords.txt')
+    pos_tweets, neg_tweets, stopwords, full_pos_tweets, full_neg_tweets = tp.process_tweets('/Users/norawestol/Documents/school/topics/SentimentAnalysis/positive_tweets.ndjson', '/Users/norawestol/Documents/school/topics/SentimentAnalysis/negative_tweets.ndjson', '/Users/norawestol/Documents/school/topics/SentimentAnalysis/english_stopwords.txt')
     
 #     # you can uncomment the next two lines once your tweet processing is working
     print(f'random positive: {pos_tweets[random.randint(0, len(pos_tweets) - 1)]}')
@@ -257,7 +258,7 @@ def main():
     debug_train_tweets = full_pos_tweets[:10] + full_neg_tweets[:10]
     debug_labels = np.append(np.ones(10), (np.zeros(10)))
 #     # now debug them to see the output
-    debug_sentiment_analysis(debug_train_tweets, stopwords, debug_labels)
+    # debug_sentiment_analysis(debug_train_tweets, stopwords, debug_labels)
 
 
     print(f'N_train_pos = {N_train_pos}, N_train_neg = {N_train_neg}')
@@ -274,34 +275,79 @@ def main():
 
 #     # count the number of positive and negative words
     num_pos, num_neg = 0, 0
+    num_pos, num_neg = count_pos_neg(freq_train)
     print(f'Number of positive events: {num_pos}, Number of negative events: {num_neg}')
 
 #     # log of the ratio of the total positive and total negative tweets from the training set
     log_pos_neg_ratio = 0
+    log_pos_neg_ratio = math.log(num_pos / num_neg, 10)
     print(f'log_pos_neg_ratio of the training set = {log_pos_neg_ratio}')
 
-#     # now calculate the log likelihood dictionary
-    log_likelihood = {}
-    
+    # now calculate the log likelihood dictionary
+       
+    log_likelihood = build_loglikelihood_dict(freq_train, num_pos, num_neg, vocab)
+     
     # uncomment the code below once you have everything above working
     # now let's test some predictions
-    # correct = 0
-    # error_tweets = []
+    correct = 0
+    error_tweets = []
     # for i in range(10):
-        # idx = random.randint(0, N_test_pos + N_test_neg - 1)
-        # print(f'Tweet: {test_x[idx]}')
-        # print(f'Label: {test_y[idx]}')
-        # print(f'Prediction: {naive_bayes_predict(log_likelihood, log_pos_neg_ratio, test_x[idx])}')
-        # print()
-
+    #     idx = random.randint(0, N_test_pos + N_test_neg - 1)
+    #     print(f'Tweet: {test_x[idx]}')
+    #     print(f'Label: {test_y[idx]}')
+    #     print(f'Prediction: {naive_bayes_predict(log_likelihood, log_pos_neg_ratio, test_x[idx])}')
+    #     print()
+    
+    for i in range(len(test_x)):
+        tweet = test_x[i]
+        label = test_y[i]
+        prediction = naive_bayes_predict(log_likelihood, log_pos_neg_ratio, tweet)
+        if prediction == 0.0:
+            print("nuetral:", tweet)
+        elif prediction < 0.0 and label == 0.0:
+            correct += 1
+        elif prediction > 0.0 and label == 1.0:
+            correct += 1
+        else:
+            print(i)
+            error_tweets.append(tweet)
+            print(tweet)
+            print(label)
+            print(prediction)
+    full_tweets = full_test_tweets[1298]
+    print(full_tweets)
     # now let's see what our error rate is
     # Calculate the error rate and print it out
-    # also print out the mislabeled tweets (include what the original tweet was, not just the stemmed one)
-    # print out the correct prediction rate of naive bayes
+    print("error rate:" , len(error_tweets) / len(test_x))
+    print("positive rate:", 1 - len(error_tweets) / len(test_x))
+
+    # testing naive bayes
+    example_tweet = "I hate my job, being a popstar is the worst! :)"
+    prediction = naive_bayes_predict(log_likelihood, log_pos_neg_ratio, example_tweet)
+    print(prediction)
 
     # now test the LLM and give it the mislabeled tweets of
     # the error set and see if it can properly label them 
+    prompt = f"""Read the text between the ### delimiters and tell me if it is a positive sentiment or a negative sentiment only by saying "positive sentiment" or "negative sentiment".
     
+    ###
+    {full_tweets}
+    ###
+    
+    """
+    responses = client.responses.create(model = "gpt-4o-mini", input = prompt)
+    print(responses.output_text)
+
+    # testing naive bayes tweet
+    prompt = f"""Read the text between the ### delimiters and tell me if it is a positive sentiment or a negative sentiment only by saying "positive sentiment" or "negative sentiment".
+    
+    ###
+    {example_tweet}
+    ###
+    
+    """
+    responses = client.responses.create(model = "gpt-4o-mini", input = prompt)
+    print(responses.output_text)
     # test_word_freq_dict(train_x, train_y)
     # test_loglikelihood_dict(None, None)
 

@@ -219,7 +219,7 @@ def test_tweet_processing():
     
     # try processing all of the positive and negative tweets now!
     print(f'processing all of the tweets now...')
-    proc_pos_tweets, proc_neg_tweets, stopwords, pos_tweets, neg_tweets = process_tweets('positive_tweets.ndjson', 'negative_tweets.ndjson', 'english_stopwords.txt')
+    proc_pos_tweets, proc_neg_tweets, stopwords, pos_tweets, neg_tweets = process_tweets('positive_tweets.ndjson', 'negative_tweets.ndjson', '/Users/norawestol/Documents/school/topics/SentimentAnalysis/english_stopwords.txt')
     print(f'done!')
 
     for i in range(3):
