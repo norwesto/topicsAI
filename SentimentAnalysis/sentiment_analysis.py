@@ -319,12 +319,7 @@ def main():
     # now let's see what our error rate is
     # Calculate the error rate and print it out
     print("error rate:" , len(error_tweets) / len(test_x))
-    print("positive rate:", 1 - len(error_tweets) / len(test_x))
-
-    # testing naive bayes
-    example_tweet = "I hate my job, being a popstar is the worst! :)"
-    prediction = naive_bayes_predict(log_likelihood, log_pos_neg_ratio, example_tweet)
-    print(prediction)
+    print("positive rate:", 1 - len(error_tweets) / len(test_x))   
 
     # now test the LLM and give it the mislabeled tweets of
     # the error set and see if it can properly label them 
@@ -339,6 +334,9 @@ def main():
     print(responses.output_text)
 
     # testing naive bayes tweet
+    example_tweet = "I hate my job, being a popstar is the worst! :)"
+    prediction = naive_bayes_predict(log_likelihood, log_pos_neg_ratio, example_tweet)
+    print(prediction)
     prompt = f"""Read the text between the ### delimiters and tell me if it is a positive sentiment or a negative sentiment only by saying "positive sentiment" or "negative sentiment".
     
     ###
