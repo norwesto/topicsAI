@@ -1,0 +1,162 @@
+[
+  {
+    "id": "CS1010",
+    "title": "Introduction to Computer Science",
+    "description": "A broad overview of computer science as a discipline. Topics include problem solving, algorithms, data representation, and the history of computing. No prior programming experience required. Students will write simple programs in Python to solve real-world problems.",
+    "prerequisites": "None",
+    "credits": 4,
+    "level": "introductory"
+  },
+  {
+    "id": "CS1310",
+    "title": "Introduction to Programming",
+    "description": "Fundamental programming concepts using Python. Covers variables, control flow, functions, recursion, lists, dictionaries, and file I/O. Emphasis on writing clean, readable code and developing a systematic approach to debugging.",
+    "prerequisites": "None",
+    "credits": 4,
+    "level": "introductory"
+  },
+  {
+    "id": "CS1410",
+    "title": "Object-Oriented Programming",
+    "description": "Introduction to object-oriented design principles. Topics include classes, objects, inheritance, polymorphism, encapsulation, and interfaces. Students implement medium-scale projects in Java or Python, learning to model real-world systems using OOP patterns.",
+    "prerequisites": "CS1310",
+    "credits": 4,
+    "level": "introductory"
+  },
+  {
+    "id": "CS2200",
+    "title": "Discrete Mathematics for Computer Science",
+    "description": "Mathematical foundations of computing. Topics include propositional and predicate logic, set theory, relations and functions, graph theory, combinatorics, and proof techniques such as induction and contradiction. Essential preparation for algorithms and theory courses.",
+    "prerequisites": "CS1310",
+    "credits": 4,
+    "level": "intermediate"
+  },
+  {
+    "id": "CS2270",
+    "title": "Data Structures",
+    "description": "Design and analysis of fundamental data structures including linked lists, stacks, queues, trees, heaps, hash tables, and graphs. Students implement these structures from scratch and analyze their time and space complexity using Big-O notation.",
+    "prerequisites": "CS1410",
+    "credits": 4,
+    "level": "intermediate"
+  },
+  {
+    "id": "CS2350",
+    "title": "Computer Organization and Architecture",
+    "description": "Introduction to how computers work at the hardware level. Topics include binary arithmetic, logic gates, combinational and sequential circuits, the Von Neumann architecture, assembly language programming, the memory hierarchy, and basic pipelining.",
+    "prerequisites": "CS1410",
+    "credits": 4,
+    "level": "intermediate"
+  },
+  {
+    "id": "CS3000",
+    "title": "Algorithms",
+    "description": "Design and analysis of algorithms. Topics include divide and conquer, greedy algorithms, dynamic programming, graph algorithms (BFS, DFS, Dijkstra, Bellman-Ford, MST), NP-completeness, and reductions. Students prove correctness and analyze complexity formally.",
+    "prerequisites": "CS2270, CS2200",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS3100",
+    "title": "Operating Systems",
+    "description": "Principles of modern operating systems. Topics include processes and threads, CPU scheduling, synchronization and deadlock, memory management and virtual memory, file systems, and I/O. Students write systems-level code in C and implement components of an OS kernel.",
+    "prerequisites": "CS2270, CS2350",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS3200",
+    "title": "Database Systems",
+    "description": "Foundations of relational database design and querying. Topics include the relational model, SQL, normalization, transactions and ACID properties, indexing and query optimization, and an introduction to NoSQL systems. Students build a database-backed web application.",
+    "prerequisites": "CS2270",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS3500",
+    "title": "Software Engineering",
+    "description": "Principles and practices of large-scale software development. Covers the software development lifecycle, requirements engineering, UML modeling, design patterns, version control with Git, agile and scrum methodologies, testing strategies, and code review.",
+    "prerequisites": "CS2270",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS3600",
+    "title": "Computer Networks",
+    "description": "Principles of computer networking. Topics include the OSI and TCP/IP models, physical layer encoding, data link protocols, IP addressing and routing, TCP and UDP transport, DNS, HTTP, and network security fundamentals. Students implement socket-based client-server applications.",
+    "prerequisites": "CS2270",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4200",
+    "title": "Artificial Intelligence",
+    "description": "Core concepts in AI including search algorithms (BFS, DFS, A*), constraint satisfaction, logical inference, Bayesian reasoning, Markov decision processes, and an introduction to machine learning. Students implement intelligent agents that solve classical AI benchmark problems.",
+    "prerequisites": "CS3000",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4210",
+    "title": "Machine Learning",
+    "description": "Theoretical and practical foundations of machine learning. Covers supervised learning (linear regression, logistic regression, SVMs, decision trees, neural networks), unsupervised learning (k-means, PCA), and model evaluation. Students complete projects using scikit-learn and PyTorch.",
+    "prerequisites": "CS3000, MATH2070",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4220",
+    "title": "Natural Language Processing",
+    "description": "Computational methods for understanding and generating human language. Topics include tokenization, part-of-speech tagging, parsing, language models (n-gram and neural), word embeddings (Word2Vec, GloVe), sequence models (RNNs, LSTMs), and transformers. Students build a text classification or generation system.",
+    "prerequisites": "CS4210",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4300",
+    "title": "Computer Vision",
+    "description": "Algorithms for extracting information from images and video. Topics include image filtering, edge detection, feature extraction (SIFT, ORB), image segmentation, object detection, and convolutional neural networks. Students implement a vision pipeline using OpenCV and PyTorch.",
+    "prerequisites": "CS4210",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4400",
+    "title": "Cybersecurity",
+    "description": "Principles and practices of securing computer systems. Topics include cryptography (symmetric, asymmetric, hashing), authentication, network attacks and defenses, web security (XSS, SQL injection, CSRF), malware analysis, and ethical hacking. Includes hands-on labs in a sandboxed environment.",
+    "prerequisites": "CS3100, CS3600",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4500",
+    "title": "Parallel and Distributed Computing",
+    "description": "Models and techniques for parallel and distributed systems. Topics include shared-memory parallelism (threads, OpenMP), message passing (MPI), distributed consensus (Paxos, Raft), MapReduce, and cloud computing concepts. Students implement parallel algorithms and benchmark their performance.",
+    "prerequisites": "CS3100",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4600",
+    "title": "Compiler Design",
+    "description": "Theory and practice of building compilers and interpreters. Topics include lexical analysis, parsing (LL, LR), abstract syntax trees, semantic analysis, type checking, intermediate code generation, and basic optimization. Students implement a full compiler for a small language.",
+    "prerequisites": "CS3000, CS3100",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4700",
+    "title": "Human-Computer Interaction",
+    "description": "Design and evaluation of user interfaces and interactive systems. Topics include user-centered design, usability heuristics, prototyping, accessibility, cognitive models of user behavior, and A/B testing. Students conduct user studies and iteratively design a web or mobile application.",
+    "prerequisites": "CS3500",
+    "credits": 4,
+    "level": "advanced"
+  },
+  {
+    "id": "CS4900",
+    "title": "Senior Capstone Project",
+    "description": "A year-long team project in which students design, implement, and present a substantial software system. Teams work with a real or simulated client, follow agile practices, and deliver a working product with documentation. Emphasis on professional communication and independent problem solving.",
+    "prerequisites": "CS3500, senior standing",
+    "credits": 4,
+    "level": "advanced"
+  }
+]
