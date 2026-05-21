@@ -1,0 +1,26 @@
+API Pairing Menu:
+
+Formal Email Generator:
+For our formal email generator, we recommend gpt-4o-mini with a temperature of 0.2, max_tokens of 400, and a presence_penalty of -1. 
+The low temperature keeps the tone consistent and professional, the token limit prevents rambling, and the negative presence penalty
+allows natural word repetition since real emails repeat words like "please" and "thank you." For inspiration, here is an example user
+prompt: "Write an email to my boss Kathy about why I missed work today."
+
+Our system prompt is: "You are a an assistant that helps write professional emails."
+
+Poem Assistant
+For our poem assistant, we recommend gpt-4o-mini with a top_p of 0.9, max_tokens of 200, and a presence_penalty of 2. 
+The high presence penalty forces the model to reach for fresh vocabulary instead of repeating words, and the wide top_p 
+opens up more imaginative word choices. Max tokens at 200 keeps the poem a natural length.  For inspiration, here is an example user
+prompt: "Write me a poem about the sky about to rain."
+
+Our system prompt is: "You are an assistant that helps the user write poetry"
+
+
+Game NPC: Potion Shopkeeper
+For our game NPC, we recommend gpt-4o-mini with a top_p of 0.6, max_tokens of 200, and a presence_penalty of -1. 
+The negative presence penalty allows the shopkeeper to naturally repeat phrases the way a real NPC would, the mid-range 
+top_p balances creativity with coherence, and the short token limit keeps dialogue brief as befitting a background character. For 
+inspiration, here is an example user prompt: "Write me lines as a shopkeeper selling potions to the player."
+
+Our system prompt is: "You are an assistant that helps write game NPC dialogue."
