@@ -1,0 +1,15 @@
+# Testing Prompts:
+
+1. "What year did the American Revolution start?"
+2. "What were the two armies called?"
+3. "Who was the general of the British army?"
+4. "What year was the Tea Act passed?"
+5. "What were some of the major events that led up to the revolution?"
+6. "How many battles took place in 1776?"
+7. "What year was the civil war"
+8. "Who was James Otis Jr.?"
+9. "Tell me about the Boston Massacre"
+10. "What role is President Lincoln play in the American Revolution?"
+11. "What happened in 1825?"
+12. "What battle took place in California?"
+13. "What battle ended the war?"
